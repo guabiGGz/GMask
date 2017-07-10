@@ -3,7 +3,7 @@
 //  SimpleWeather
 //
 //  Created by ksjr-zg on 16/10/14.
-//  Copyright © 2017年 快刷金融. All rights reserved.
+//  Copyright © 2016年 Ryan Nystrom. All rights reserved.
 //
 
 #import "GMaskView.h"
@@ -30,8 +30,7 @@
     self = [self init];
     if (self) {
         _animator = animator;
-        [self addObserver:self forKeyPath:@"showNav" options:NSKeyValueObservingOptionNew context:nil];
-        [self addObserver:self forKeyPath:@"showTabbar" options:NSKeyValueObservingOptionNew context:nil];
+        [self addObserver:self forKeyPath:@"bounds" options:NSKeyValueObservingOptionNew context:nil];
     }
     return self;
 }
@@ -45,8 +44,6 @@
         self.alpha = 0;
         self.showNav = NO;
         self.showTabbar = NO;
-        self.effect = NO;
-        self.alpha = 1;
         self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapEvent:)];
         self.tap.delegate = self;
         [self addGestureRecognizer:self.tap];
@@ -73,7 +70,7 @@
 
 #pragma mark - KVO
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"showNav"] || [keyPath isEqualToString:@"showTabbar"]) {
+    if ([keyPath isEqualToString:@"bounds"]) {
         _needRemoved = YES;
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -86,16 +83,16 @@
     [self showWithComplete:nil];
 }
 
-- (void)showWithTap:(void(^)(void))tapHandler {
+- (void)showWithTapHandle:(void(^)(void))tap {
     self.tap.enabled = YES;
-    [self showWithComplete:tapHandler];
+    [self showWithComplete:tap];
 }
 
 - (void)dismiss {
     if (nil == self)    return;
     if (!self.isShowing) return;
     
-   [self.animator startDismissAnimating];
+    [self.animator startDismissAnimating];
     _showing = NO;
 }
 
@@ -142,24 +139,16 @@
     
     self.animator.referenceView.center = self.center;
     
-    if (_effect) {
-        [self applyBlurImageOnWindow:keyWindow
-                          blurRadius:10
-                           tintColor:[[UIColor blackColor] colorWithAlphaComponent:0.5]
-               saturationDeltaFactor:1.0
-                            complete:^(UIImage *blurImage) {
-                                self.image = blurImage;
-                                [self.animator startShowAnimating];
-                                _showing = YES;
-                                _tapHandle = complete;
-                            }];
-    }
-    
-    else {
-        [self.animator startShowAnimating];
-        _showing = YES;
-        _tapHandle = complete;
-    }
+    [self applyBlurImageOnWindow:keyWindow
+                      blurRadius:10
+                       tintColor:[[UIColor blackColor] colorWithAlphaComponent:0.5]
+           saturationDeltaFactor:1.0
+                        complete:^(UIImage *blurImage) {
+                            self.image = blurImage;
+                            [self.animator startShowAnimating];
+                            _showing = YES;
+                            _tapHandle = complete;
+                        }];
 }
 
 - (void)reCalculateFrame {
@@ -193,9 +182,9 @@
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         UIImage *applyedImage = [image applyBlurWithRadius:blurRadius
-                                          tintColor:tintColor
-                              saturationDeltaFactor:saturationDeltaFactor
-                                          maskImage:nil];
+                                                 tintColor:tintColor
+                                     saturationDeltaFactor:saturationDeltaFactor
+                                                 maskImage:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
             (!complete) ?: complete(applyedImage);
         });
@@ -210,7 +199,7 @@
     if (appRootVC.presentedViewController) {
         nextResponder = appRootVC.presentedViewController;
         
-    } else {
+    }else{
         UIView *frontView = [[window subviews] objectAtIndex:0];
         nextResponder = [frontView nextResponder];
     }
@@ -220,11 +209,11 @@
         UINavigationController *nav = tabbar.selectedViewController;
         result = nav.childViewControllers.lastObject;
         
-    } else if ([nextResponder isKindOfClass:[UINavigationController class]]) {
+    }else if ([nextResponder isKindOfClass:[UINavigationController class]]) {
         UIViewController *nav = (UIViewController *)nextResponder;
         result = nav.childViewControllers.lastObject;
         
-    } else {
+    }else{
         result = nextResponder;
     }
     
@@ -232,11 +221,11 @@
 }
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect {
+ // Drawing code
+ }
+ */
 
 @end

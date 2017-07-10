@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "356B2D361AB95DDBD2151A2119E0F461A83C5B08",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "356B2D361AB95DDBD2151A2119E0F461A83C5B08" : 9223372036854775807,
+    "BF339E9D8D9A56F4873392E64BF08C87F05C7FA8" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "57DE34EB-44C3-409A-A7A3-027F9C1D07C4",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "356B2D361AB95DDBD2151A2119E0F461A83C5B08" : "GMask\/",
+    "BF339E9D8D9A56F4873392E64BF08C87F05C7FA8" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "GMaskDemo",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "GMaskDemo\/GMaskDemo.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/guabiGGz\/GMask.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "356B2D361AB95DDBD2151A2119E0F461A83C5B08"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/guabiGGz\/BashShell.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "BF339E9D8D9A56F4873392E64BF08C87F05C7FA8"
+    }
+  ]
+}
