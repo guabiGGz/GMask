@@ -83,9 +83,9 @@
     [self showWithComplete:nil];
 }
 
-- (void)showWithTapHandle:(void(^)(void))tap {
+- (void)showWithTap:(void(^)(void))tapHandler {
     self.tap.enabled = YES;
-    [self showWithComplete:tap];
+    [self showWithComplete:tapHandler];
 }
 
 - (void)dismiss {
